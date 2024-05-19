@@ -38,6 +38,20 @@ npm run express
 
 APIが呼び出せたことを確認できました
 
+５.POSTで呼び出し(curl)
+
+POSTで呼び出し
+```
+$ curl -X POST -d "val1=str&val2=cat2" "http://localhost:3000/util/strcat"
+"strcat2"
+```
+
+jsonで呼び出し
+```
+$ curl -X POST -H "Content-Type: application/json" -d '{"val1":"str", "val2": "cat3"}' "http://localhost:3000/util/strcat"
+"strcat3"
+```
+
 ### その他の機能
 
 * 関数内で`reqest`オブジェクトを参照することができます(GET,POSTで処理を切り分ける等)
