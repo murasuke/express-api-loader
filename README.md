@@ -75,7 +75,7 @@ export const test1 = () => {
 
 * apiフォルダにあるファイルをdynamic importで読み込み、関数の一覧をexpressに登録する
 * 登録するパスは`/<ファイル名(拡張子抜き)>/<関数名>`
-* [fnArgs]()で関数の引数名の一覧を取得し、クエリストリング(リクエストBody)からその名前で値を取り出して、関数を呼び出す
+* [fn-Args](https://www.npmjs.com/package/fn-args)で関数の引数名の一覧を取得し、クエリストリング(リクエストBody)からその名前で値を取り出して、関数を呼び出す
 * 関数呼び出しの直前、関数オブジェクトに`req`をセットする（関数内でreqを利用できる）
 
 ```js:express-api-loader.js
