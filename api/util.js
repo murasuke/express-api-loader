@@ -1,18 +1,19 @@
 /**
  * 文字をつなげて返す
  */
-export function strcat(val1, val2) {
+export const strcat = (val1, val2) => {
   return val1 + val2;
-}
+};
 
 /**
  * reqオブジェクトを参照するサンプル(GET,POSTで処理を切り分ける)
  */
-export const test1 = () => {
-  // 関数自体にreqが入っているため、必要があれば参照可能
-  if (test1['Request']['method'] == 'GET') {
-    return 'test1 get';
+export function use_request(arg1) {
+  // 必要に応じてargumentsからreq,resを取得できる(アロー関数は不可)
+  const context = arguments[arguments.length - 1];
+  if (context.req['method'] == 'GET') {
+    return { message: 'GET test1', arg1 };
   } else {
-    return { message: 'test1 post' };
+    return { message: 'POST test1', arg1 };
   }
-};
+}

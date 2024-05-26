@@ -13,10 +13,10 @@ import fs from 'fs';
 import path from 'path';
 import fnArgs from 'fn-args';
 
-const handler = (func, arg_mapper) => {
+const handler = (func, mapper) => {
   return (req, res) => {
-    func['Request'] = req; // requestを呼び出し元で参照できるようにする
-    const result = func(...fnArgs(func).map(arg_mapper(req)));
+    // 引数の最後に{ req, res }を追加（必要に応じてargumentsから取り出す)
+    const result = func(...[...fnArgs(func).map(mapper(req)), { req, res }]);
     res.json(result);
   };
 };
