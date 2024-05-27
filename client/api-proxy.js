@@ -21,7 +21,7 @@ import path from 'path';
 import fnArgs from 'fn-args';
 
 /**
- * dynamic importしたモジュールをproxyしてREST API呼び出しに変換する
+ * dynamic importしたモジュールをProxy化してREST APIを呼び出すコードに置き換える
  * @param {string} url_base
  * @param {string} api_path
  * @returns REST APIの結果を取得するためのPromiseを返す
