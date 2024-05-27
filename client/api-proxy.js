@@ -1,11 +1,18 @@
 /**
  * api-loaderで登録したREST APIを、クライアント側から通常の関数のように呼び出すためのproxy
+ * 前提
+ *   RestAPIは下記で公開している前提
+ *   https://github.com/murasuke/express-api-loader/blob/master/express-api-loader.js
  * 機能
  * ・apiとして登録したファイルのパスとurlを引き渡すと、REST API呼び出しに変換して結果を返す
  *   (非同期関数に変換される)
  * サンプルコード
+ *   // ./api/util.js' に実装したAPIの定義
+ *   // export const strcat = (val1, val2) => val1 + val2;
+ * 
  *   import { createProxy } from './api-proxy.js';
- *   const proxy = await createProxy('http://localhost:3000', './api/util.js');
+ *   // dynamic importしたモジュールをProxy化してREST APIへの呼び出しに変更する
+ *   const proxy = await createProxy('http://localhost:3000', './api/util.js'); 
  *   // proxyが"localhost:3000/util/strcat/?val1=aa&val2=bb"の呼び出しに置き換える
  *   const result = await proxy.strcat('aa', 'bb');
  */
