@@ -13,6 +13,7 @@ import fs from 'fs';
 import path from 'path';
 import fnArgs from 'fn-args';
 
+// API実行
 const handler = (func, mapper) => {
   return (req, res) => {
     // 引数の最後に{ req, res }を追加（必要に応じてargumentsから取り出す)
@@ -21,6 +22,7 @@ const handler = (func, mapper) => {
   };
 };
 
+// apiフォルダにあるmoduleの関数をREST APIとして登録する
 const apiLoader = async (express) => {
   const api_files = fs.readdirSync('./api');
   for (let file_name of api_files) {
@@ -41,6 +43,20 @@ const apiLoader = async (express) => {
       }
     }
   }
+
+  // 型情報を返すエンドポイントを登録する
+  // /api/definition/<module_name>
+  for (let file_name of api_files) {
+    const module = await import(`./api/${file_name}`);
+    const func_types = {};
+    file_name = path.parse(file_name).name;
+    for (const key of Object.keys(module)) {
+      // key:関数名, value:引数名の配列
+      func_types[key] = fnArgs(module[key]);
+    }
+    express.get(`/api/definition/${file_name}`, () => res.json(func_types));
+  }
+
   const requestHandler = async (req, res, next) => {
     next();
   };
