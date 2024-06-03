@@ -3,8 +3,9 @@
  * 【対応案】
  * 1:APIのソースをdynamic importsし、RESTの呼び出しに変換するProxyを生成する
  *   ⇒ ブラウザ側でサーバーソースが参照できるのはまずい・・・
- * 2:util.jsをブラウザ側でdynamic importするのをやめる。サーバ側から関数の型情報だけもらってProxyを生成できないか？
+ * 2:dynamic importしない。サーバ側から関数の型情報だけもらってProxyを生成する
  * 3:JSDocで型指定を行い、メソッドは「マジックメソッド」として実行時に解決する
+ * 　⇒ 仮引数名がわからないのでダメだった
  * 4:ほかに何かあれば
  */
 
@@ -13,7 +14,7 @@
 // JSDocで型指定をしているので、メソッド定義の補完もできる
 
 import { createProxy } from './api-proxy-2.js';
-/** @type { import("../api/util.js") } */  
+/** @type { import("../api/util.js") } */
 const proxy = await createProxy('http://localhost:3000', 'util.js');
 const result = await proxy.strcat('aa', 'bb');
 console.log(result);
