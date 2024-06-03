@@ -4,6 +4,16 @@
   // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+
+    {
+        "name": "Launch Program",
+        "program": "${file}",
+        "request": "launch",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node"
+    },
     {
       "name": "Attach by Process ID",
       "processId": "${command:PickProcess}",

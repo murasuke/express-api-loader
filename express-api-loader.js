@@ -54,7 +54,7 @@ const apiLoader = async (express) => {
       // key:関数名, value:引数名の配列
       func_types[key] = fnArgs(module[key]);
     }
-    express.get(`/api/definition/${file_name}`, () => res.json(func_types));
+    express.get(`/api/definition/${file_name}`, (req, res) => res.json(func_types));
   }
 
   const requestHandler = async (req, res, next) => {
