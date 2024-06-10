@@ -5,7 +5,7 @@
  *   (非同期関数に変換される)
  * サンプルコード
  *   import { createProxy } from './api-proxy.js';
- *   const proxy = await createProxy('http://localhost:3000', './api/util.js');
+ *   const proxy = await createProxy('http://localhost:3000', 'util');
  *   // proxyが"localhost:3000/util/strcat/?val1=aa&val2=bb"の呼び出しに置き換える
  *   const result = await proxy.strcat('aa', 'bb');
  */

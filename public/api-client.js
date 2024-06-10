@@ -15,7 +15,7 @@
 
 import { createProxy } from './api-proxy.js';
 /** @type { import("../api/util.js") } */
-const proxy = await createProxy('http://localhost:3000', 'util.js');
-const result = await proxy.strcat('aa', 'bb');
+const util = await createProxy('http://localhost:3000', 'util');
+const result = await util.strcat('aa', 'bb');
 console.log(result);
-console.log(await proxy.use_request('test_value'));
+console.log(await util.use_request('test_value'));

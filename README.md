@@ -1,15 +1,35 @@
-# JavaScriptのモジュールをREST APIとして公開するexpressミドルウェア
+# JavaScriptのモジュールをREST APIとして公開するexpressミドルウェアと、クライアントから通常の関数のようにAPI呼び出しができるProxyサンプル
 
-apiフォルダにjsファイルを配置するだけで、REST APIとして呼び出し可能にするミドルウェアです
+## 目標
+### 目標1(サーバー側：expressミドルウェア)
+
+* 特定のフォルダ(apiフォルダ)にjsファイルを配置するだけで、REST APIとして呼び出し可能にする
 
 RailsやCakePHPのルーティングのように、URLから呼び出すファイル名と関数名を決定します
 
-* `/api/func?val1=str&val2=cat` ⇒ api.js の func('str', 'cat')を呼び出す
+例：api/util.js に`function strcat(val1, val2){}`という関数を定義すると
+ `/api/util?val1=foo&val2=bar`で呼び出しできるように自動で登録される
+
+### 目標2(クライアント側：API呼び出しProxy)
+
+* 通常の関数呼び出しのように、REST APIを呼び出し可能にする(非同期関数になります)
+
+```js
+import { createProxy } from './api-proxy.js';
+const util = await createProxy('http://localhost:3000', 'util');
+const result = await util.strcat('foo', 'bar');
+console.log(result); // "foobar"
+```
+
 
 ## 機能
+### 機能1(サーバー側：expressミドルウェア)
 * /api/にあるファイル(ES Module)を動的に読み込み、下記ルールでルーティングする
   * http(s)://<host_name>/<ファイル名(拡張子抜き)>/<関数名>
 * (get:クエリストリング|post:リクエストbody)から関数の引数と同じ名前の値を取り出して、関数を呼び出す
+* クライアント側からREST API呼び出しを可能にするため、型情報を公開する(関数名と、仮引数名の配列)
+
+### 機能2(クライアント側：API呼び出しProxy)
 
 ### 利用イメージ
 
